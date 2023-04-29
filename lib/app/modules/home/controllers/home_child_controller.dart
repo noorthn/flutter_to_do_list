@@ -11,6 +11,13 @@ class CreateTaskController extends GetxController {
   
   final HomeController homeController = Get.find();
   
+  @override
+  void onReady() {
+    super.onReady();
+    loadCategoriesList();
+  }
+
+
   TextEditingController iconCt                      = TextEditingController();
   TextEditingController titleCt                     = TextEditingController();
   TextEditingController categoryCt                  = TextEditingController();
@@ -30,6 +37,14 @@ class CreateTaskController extends GetxController {
   RxString get priority                             =>  _priority;
   set priority(data){_priority.value                = data; update();}
   
+  RxList<Category> _categoriesFilter                = RxList<Category> ([]);
+  RxList<Category> get categoriesFilter             => _categoriesFilter;
+  loadCategoriesList(){_categoriesFilter.value      = [...homeController.categories];}
+
+  Rx<Category> _category                            =  Category().obs;
+  Rx<Category> get category                         => _category;
+  set category(data){_category.value                = data; update();}
+
   Rx<DateTime> _endDate                             =  DateTime.now().obs;
   Rx<DateTime> get endDate                          => _endDate;
   set endDate(data){_endDate.value                  = data; update();}
@@ -53,7 +68,7 @@ class CreateTaskController extends GetxController {
 
   createTask(){
 
-      homeController.addTask(Task(
+    homeController.addTask(Task(
       id          : homeController.tasks.length,
       icon        : iconCt.text,
       name        : titleCt.text,
@@ -71,6 +86,9 @@ class CreateTaskController extends GetxController {
     update();
   }
 
-
+  filterCategory(){
+    _categoriesFilter.value = homeController.categories.where((p0) => p0.name!.toLowerCase().contains(categoryCt.text.toLowerCase())).toList(); 
+    update();
+  }
 
 }

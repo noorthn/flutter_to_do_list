@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import '../../../../data/model/category_model.dart';
 import '../../controllers/home_child_controller.dart';
 
 
@@ -162,6 +163,121 @@ class CreateTaskModal extends GetView<CreateTaskController> {
     );
   }
 
+  categories(){
+    return InkWell(
+      onTap: (){
+        Get.dialog(
+          Material(
+            color: Colors.transparent,
+            child: Center(
+              child: SizedBox(
+              height  : Get.height / 1.9 ,
+              width: double.infinity,
+                child: Stack(
+                  children: [
+                    Container(
+                      padding : const EdgeInsets.only(left    : 15, right: 15, top: 18),
+                      margin  : const EdgeInsets.all( 20),
+                      height  : Get.height / 2 ,
+                      width: double.infinity,
+                      decoration      : BoxDecoration(
+                        color: Get.theme.scaffoldBackgroundColor,
+                        borderRadius  : BorderRadius.circular(10.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextFormField(
+                              controller: controller.categoryCt,
+                              decoration: const InputDecoration(prefixIcon: Icon(Iconsax.search_normal_1),
+                              border    : InputBorder.none,
+                              filled    : true,
+                              fillColor : Colors.white10,
+                              hintStyle :  TextStyle(color: Colors.white54),
+                              hintText  : 'Search Category',
+                              enabledBorder:  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)),borderSide: BorderSide(width: 3, color: Colors.transparent)),
+                              focusedBorder:  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)),borderSide: BorderSide(width: 3, color: Colors.transparent)),
+                            ),
+                            onChanged: (value) => controller.filterCategory(),
+                          ),
+
+                          const Divider(color: Colors.white10,),
+                          Obx(() =>Expanded(
+                            child: ListView(
+                              children: [
+                                for(var item in controller.categoriesFilter)
+                                  categoryItem(category: item)
+                              ]
+                            )
+                          ))
+                        ]
+                      )
+                    ),
+
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () => Get.back(),
+                          child: Container(
+                            height: 60,
+                            width: 60,
+                            margin: const EdgeInsets.only(right: 15),
+                            decoration: BoxDecoration(
+                              color: Get.theme.primaryColor,
+                              borderRadius: const BorderRadius.all(Radius.circular(10))
+                            ),
+                            child: const Icon(Icons.check, color: Colors.white,size: 30,),
+                          ),
+                        ),
+                      )
+                    )
+                  ],
+                ),
+              )
+            ),
+          )
+        );
+      },
+      child: Container(
+        padding : const EdgeInsets.only(left    : 15, right: 15,),
+        margin  : const EdgeInsets.only(bottom: 15),
+        height  : 65,
+        width: double.infinity,
+        decoration      : BoxDecoration(
+          color: Colors.white10,
+          borderRadius  : BorderRadius.circular(10.0),
+        ),
+        child : Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(controller.category.value.name ?? 'Category', style: const TextStyle(color: Colors.white54),),
+            const Icon(Icons.arrow_forward_ios, color: Colors.white70, size: 15,),
+          ]
+        )
+      )
+    );
+  }
+
+  categoryItem({required Category category, bool selected = false}){
+    return  Obx(() =>  InkWell(
+      onTap: () => controller.category = category,
+      child: Container(
+        height: 50,
+        width: double.infinity,
+        margin    : const EdgeInsets.only(bottom: 15),
+        padding   : const EdgeInsets.only(left: 15,right: 16,  top: 14),
+        decoration: BoxDecoration(
+          color       : controller.category.value.name == category.name ? const Color.fromRGBO(254, 6, 145, 1) :  Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(15)
+        ),
+        child     : Text('${category.icon!}  ${category.name!}', 
+        style: TextStyle(color:  controller.category.value.name == category.name ? Colors.white : Colors.white60),)
+      ),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     Get.put(CreateTaskController());
@@ -199,10 +315,7 @@ class CreateTaskModal extends GetView<CreateTaskController> {
                   controller.titleCt,
                   label: 'Title'
                 ),
-                field(
-                  controller.categoryCt,
-                  label: 'Category'
-                ),
+                categories(),
                 field(
                   controller.descriptionCt,
                   label: 'Description'
