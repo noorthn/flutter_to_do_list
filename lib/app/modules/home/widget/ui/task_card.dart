@@ -3,12 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../data/model/task_model.dart';
+
 class TaskCard extends StatelessWidget {
 
-  
+  final Task task;
 
   const TaskCard({
-    super.key
+    super.key,
+    required this.task
   });
 
   @override

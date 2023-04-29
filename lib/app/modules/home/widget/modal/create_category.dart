@@ -9,8 +9,8 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../../controllers/home_child_controller.dart';
 
 
-class CreateTaskModal extends GetView<CreateTaskController> {
-  const CreateTaskModal({super.key});
+class CreateCategoryModal extends GetView<CreateTaskController> {
+  const CreateCategoryModal({super.key});
 
   field(TextEditingController cont, {String label = ''}){
     return Container(
@@ -178,7 +178,7 @@ class CreateTaskModal extends GetView<CreateTaskController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('New Task'),
+              const Text('New Category'),
               InkWell(
                 onTap: (){Get.back();},
                 child: const Icon(Iconsax.close_square, color: Colors.white70)
@@ -188,7 +188,7 @@ class CreateTaskModal extends GetView<CreateTaskController> {
           const Divider(color: Colors.white60),
           const SizedBox(height: 5),
 
-           Obx(() =>Expanded(
+           Expanded(
             child: ListView(
               children: [
                 field(
@@ -199,37 +199,9 @@ class CreateTaskModal extends GetView<CreateTaskController> {
                   controller.titleCt,
                   label: 'Title'
                 ),
-                field(
-                  controller.categoryCt,
-                  label: 'Category'
-                ),
-                field(
-                  controller.descriptionCt,
-                  label: 'Description'
-                ),
-                priority(),
-                const Divider(color: Colors.white10),
-
-                check(
-                  title: 'With deadline', 
-                  value: controller.showEndDate.value,
-                  onTap: (){controller.showEndDate = false;}
-                ),
-                const Divider(color: Colors.white10),
-                  if(controller.showEndDate.value)
-                    datePicker(controller.endDate.value, true),
-
-                check(
-                  title: 'With alert', 
-                  value: controller.showAlert.value,
-                  onTap: (){controller.showAlert = false;}
-                ),
-                const Divider(color: Colors.white10),
-                  if(controller.showAlert.value)
-                    datePicker(controller.alartDate.value, false),
 
                 InkWell(
-                  onTap: () => controller.createTask(),
+                  onTap: () => controller.createCategory(),
                   child: Container(
                     width     : double.infinity,
                     height    : 60,
@@ -238,13 +210,12 @@ class CreateTaskModal extends GetView<CreateTaskController> {
                       color         : const Color.fromRGBO(254, 6, 145, 1),
                       borderRadius  : BorderRadius.circular(15),
                     ),
-                    child     : const Center(child: Text('Create task', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)),
+                    child     : const Center(child: Text('Create Category', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)),
                   )
                 ),
-                const SizedBox(height: 50)
               ],
             ),
-          ))
+          )
         ]
       )
     );

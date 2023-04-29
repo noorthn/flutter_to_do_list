@@ -52,7 +52,7 @@ class HomeScreen extends GetView<HomeController> {
               ),
 
               for(var item in controller.tasks)
-                const TaskCard()
+                TaskCard(task: item)
 
             ]
           )

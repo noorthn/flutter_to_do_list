@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import '../../../data/model/category_model.dart';
 import '../../../data/model/task_model.dart';
 import 'home_controller.dart';
 
@@ -37,6 +37,19 @@ class CreateTaskController extends GetxController {
   Rx<DateTime> _alartDate                           =  DateTime.now().obs;
   Rx<DateTime> get alartDate                        => _alartDate;
   set alartDate(data){_alartDate.value              = data; update();}
+
+  createCategory(){
+
+    homeController.addCategory(Category(
+      id          : homeController.tasks.length,
+      icon        : iconCt.text,
+      name        : titleCt.text,
+    ));
+
+    Get.back();
+    update();
+    
+  }
 
   createTask(){
 
