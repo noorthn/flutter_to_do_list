@@ -3,7 +3,10 @@
 | Home | New Task | Filter Category |
 | --- | --- | --- |
 | <img src="/assets/screenshots/1.png" width="300"> | <img src="/assets/screenshots/2.png" width="300"> | <img src="/assets/screenshots/3.png" width="300"> |
-1
+
+
+## Hola!
+
 Este repositorio contiene el código fuente de una aplicación To Do List desarrollada con Flutter y el manejador de estados GetX. La aplicación permite crear categorías para agrupar tareas y tiene un hermoso diseño que la hace fácil y agradable de usar.
 
 ## Características
