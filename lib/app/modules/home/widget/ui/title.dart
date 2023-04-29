@@ -14,7 +14,7 @@ class TitleWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           Text('Welcome back', style: TextStyle(height: 1, fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white70),),
-          Text('Noortn!', style: TextStyle(height: 1.2, fontWeight: FontWeight.bold, fontSize: 45, color: Colors.white70),),
+          Text('Noorthn!', style: TextStyle(height: 1.2, fontWeight: FontWeight.bold, fontSize: 45, color: Colors.white70),),
         ],
       ),
     );
