@@ -55,8 +55,10 @@ class CreateTaskController extends GetxController {
 
   createCategory(){
 
+    
+
     homeController.addCategory(Category(
-      id          : homeController.tasks.length,
+      id          : homeController.categories.length,
       icon        : iconCt.text,
       name        : titleCt.text,
     ));

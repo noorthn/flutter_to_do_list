@@ -2,9 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../controllers/home_child_controller.dart';
 
@@ -30,137 +28,7 @@ class CreateCategoryModal extends GetView<CreateTaskController> {
     );
   }
 
-  check({String title = 'Title', bool value = false, dynamic onTap}){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(title),
-        InkWell(
-          onTap: onTap,
-          child: Container(
-            height: 50,
-            width: 50,
-            decoration: const BoxDecoration(
-              color: Colors.white10,
-              borderRadius: BorderRadius.all(Radius.circular(15))
-            ),
-            child: value ? const Icon(Icons.check, color: Colors.white70) :  Container(),
-          ),
-        )
-      ]
-    );
-  }
 
-  priority(){
-    return Container(
-      padding : const EdgeInsets.only(left    : 15, right: 15, top: 8),
-      margin  : const EdgeInsets.only(bottom: 15),
-      height  : 65,
-      decoration      : BoxDecoration(
-        color: Colors.white10,
-        borderRadius  : BorderRadius.circular(10.0),
-      ),
-      child         : DropdownButton<String>(
-        value       : controller.priority.value,
-        borderRadius  : BorderRadius.circular(10),
-        dropdownColor : Get.theme.scaffoldBackgroundColor,
-        isExpanded    : true,
-        icon          : const RotatedBox(quarterTurns  : 1,child: Icon(Icons.chevron_right, color: Colors.white70)),
-        items: controller.homeController.priorities.map((item) => DropdownMenuItem(
-          value: item,
-          child: Text(item,style: Get.textTheme.bodyLarge!.copyWith(color: Colors.white70), )
-        )).toList(),
-        onChanged: (dynamic value) async {controller.priority = value;},
-        underline: Container(),
-      )
-    );
-  }
-
-  datePicker(DateTime date, bool type){
-    return InkWell(
-      onTap: (){
-        Get.dialog(
-          Center(
-            child: SizedBox(
-              height  : Get.height / 1.9 ,
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  Container(
-                    padding : const EdgeInsets.only(left    : 15, right: 15, top: 18),
-                    margin  : const EdgeInsets.all( 20),
-                    height  : Get.height / 2 ,
-                    width: double.infinity,
-                    decoration      : BoxDecoration(
-                      color: Get.theme.scaffoldBackgroundColor,
-                      borderRadius  : BorderRadius.circular(10.0),
-                    ),
-                    child : SfDateRangePicker( 
-                      selectionTextStyle      : const TextStyle(color: Colors.white),
-                      selectionColor          : Get.theme.primaryColor,
-                      startRangeSelectionColor: Colors.white,
-                      todayHighlightColor     : Get.theme.primaryColor,
-                      rangeSelectionColor     :Get.theme.primaryColor,
-                      endRangeSelectionColor  : Get.theme.primaryColor,
-                      rangeTextStyle          : const TextStyle(color: Colors.white),
-                      selectionMode           : DateRangePickerSelectionMode.single,
-                      headerStyle             : const DateRangePickerHeaderStyle(textStyle: TextStyle(color: Colors.white)),
-                      monthCellStyle          : const DateRangePickerMonthCellStyle(textStyle: TextStyle(color: Colors.white)),
-                      yearCellStyle           : const DateRangePickerYearCellStyle(textStyle: TextStyle(color: Colors.white)),
-                      monthViewSettings       : const DateRangePickerMonthViewSettings(
-                        weekNumberStyle       : DateRangePickerWeekNumberStyle(textStyle: TextStyle(color: Colors.white)), 
-                        viewHeaderStyle       : DateRangePickerViewHeaderStyle(textStyle: TextStyle(color: Colors.white)),
-                        firstDayOfWeek: 1
-                      ),
-                      onSelectionChanged: (DateRangePickerSelectionChangedArgs value){
-                        if(type){
-                          controller.endDate = value.value;
-                        }else{
-                          controller.alartDate = value.value;
-                        }
-                      }
-                    )
-                  ),
-            
-                  
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () => Get.back(),
-                        child: Container(
-                          height: 60,
-                          width: 60,
-                          margin: const EdgeInsets.only(right: 15),
-                          decoration: BoxDecoration(
-                            color: Get.theme.primaryColor,
-                            borderRadius: const BorderRadius.all(Radius.circular(10))
-                          ),
-                          child: const Icon(Icons.check, color: Colors.white,size: 30,),
-                        ),
-                      ),
-                    )
-                  )
-                ]
-              )
-            )
-          )
-        );
-      },
-      child: Container(
-        padding : const EdgeInsets.only(left    : 15, right: 15, top: 18),
-        margin  : const EdgeInsets.only(bottom: 15),
-        height  : 65,
-        width: double.infinity,
-        decoration      : BoxDecoration(
-          color: Colors.white10,
-          borderRadius  : BorderRadius.circular(10.0),
-        ),
-        child : Text(DateFormat('dd / MM / yyyy').format(date))
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,15 +59,40 @@ class CreateCategoryModal extends GetView<CreateTaskController> {
            Expanded(
             child: ListView(
               children: [
-                field(
-                  controller.iconCt,
-                  label: 'Icon',
-                ),
-                field(
-                  controller.titleCt,
-                  label: 'Title'
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 80,
+                      margin: const EdgeInsets.only( right: 15),
+                      child: Center(
+                        child: TextFormField(
+                          controller: controller.iconCt,
+                          decoration: const InputDecoration(
+                            border    : InputBorder.none,
+                            filled    : true,
+                            fillColor : Colors.white10,
+                            hintStyle : TextStyle(color: Colors.white54),
+                            hintText  : '🏀',
+                            enabledBorder:  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)),borderSide: BorderSide(width: 3, color: Colors.transparent)),
+                            focusedBorder:  OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)),borderSide: BorderSide(width: 3, color: Colors.transparent)),
+                          ),
+                          maxLength: 1,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      )
+                    ),
+                    Expanded(
+                      child: field(
+                        controller.titleCt,
+                        label: 'Title'
+                      ),
+                    )
+                  ]
                 ),
 
+                const SizedBox(height: 20),
                 InkWell(
                   onTap: () => controller.createCategory(),
                   child: Container(

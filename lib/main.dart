@@ -4,7 +4,7 @@ import 'package:get/route_manager.dart';
 import 'app/modules/home/controllers/home_binding.dart';
 import 'app/modules/home/home_screen.dart';
 import 'core/theme/theme.dart';
-import 'routes/pages.dart';
+import 'routes/pages.dart'; 
 
 
 void main() {
